@@ -1,0 +1,12 @@
+/* Nella cartella Recipes, crea questo file per nascondere la scrollbar del carosello su tutti i browser principali */
+
+/* Chrome, Safari, Edge */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
