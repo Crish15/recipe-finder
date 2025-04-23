@@ -1,14 +1,14 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'
 
 const icons = [
   { to: '/', icon: '🏠', label: 'Home' },
   { to: '/recipes', icon: '🍳', label: 'Recipes' },
   { to: '/ingredients', icon: '🥚', label: 'Ingredients' },
   { to: '/saved-recipes', icon: '⭐', label: 'Saved' },
-];
+]
 
 export default function Sidebar() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   return (
     <nav
       className="
@@ -39,9 +39,13 @@ export default function Sidebar() {
       {/* Avatar sempre visibile */}
       <div className="flex flex-col items-center">
         <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center shadow-md">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User avatar" className="w-10 h-10 rounded-full object-cover" />
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="User avatar"
+            className="w-10 h-10 rounded-full object-cover"
+          />
         </div>
       </div>
     </nav>
-  );
+  )
 }

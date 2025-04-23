@@ -1,54 +1,49 @@
-# React + TypeScript + Vite
+# Recipe Finder – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for Recipe Finder, built with **React**, **TypeScript**, and **Vite**, styled using **Tailwind CSS**.
 
-Currently, two official plugins are available:
+## Main Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for recipes by ingredients using the Spoonacular API
+- Horizontal carousel for browsing recipes
+- Highlights missing ingredients in each recipe
+- Cuisine filters and responsive layout
+- Sidebar navigation and decorative patterns
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/components/`: Reusable UI components (Button, Input, Carousel, etc.)
+- `src/layout/`: Layout and global contexts (e.g., `CuisineContext`)
+- `src/pages/`: Main app pages (Home, Recipes, Ingredients, etc.)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Conventions & Best Practices
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Strict typing**: No use of `any`; all components and refs are strongly typed.
+- **Generic Carousel**: Use the `createCarousel` factory to create a typed carousel:
+  ```tsx
+  import createCarousel from '../components/Carousel'
+  const Carousel = createCarousel<MyType>()
+  ```
+- **Separated contexts**: React contexts are in dedicated files (e.g., `CuisineContext.tsx`).
+- **Input**: The `Input` component supports the `ref` prop and all standard HTML input attributes.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Quick Start
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. Install dependencies:
+   ```sh
+   npm install
+   ```
+2. Start the frontend:
+   ```sh
+   npm run dev
+   ```
+   The app will be available at `http://localhost:5173`.
+
+## Development Notes
+
+- For the backend, see the `../backend` folder.
+- For the Spoonacular API key, refer to the backend documentation.
+
+## License
+
+See [LICENSE](../LICENSE) for details.

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const PastaPattern: React.FC = () => (
   <svg className="absolute inset-0 w-full h-full -z-10 opacity-20" aria-hidden="true">
@@ -17,6 +17,6 @@ const PastaPattern: React.FC = () => (
     </defs>
     <rect width="100%" height="100%" fill="url(#pasta-plate)" />
   </svg>
-);
+)
 
-export default PastaPattern;
+export default PastaPattern
