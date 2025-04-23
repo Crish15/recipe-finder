@@ -49,7 +49,10 @@ async fn test_search_recipe_handler() {
     let app = test::init_service(
         App::new().route("/recipes/search", web::post().to(search_recipe))
     ).await;
-    let payload = serde_json::json!(["chicken"]);
+    let payload = serde_json::json!({
+        "ingredients": ["chicken"],
+        "cuisine": "mediterranean"
+    });
     let req = test::TestRequest::post()
         .uri("/recipes/search")
         .set_json(&payload)
