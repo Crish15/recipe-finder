@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ./backend
+      target: dev
+    ports:
+      - "49152:8080"
+    volumes:
+      - ./backend/recipe.db:/app/recipe.db
+      - ./backend:/app
+    environment:
+      - RUST_LOG=info
+    env_file:
+      - ./backend/.env
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend

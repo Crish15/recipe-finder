@@ -5,4 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      '/recipes': 'http://backend:8080',
+      '/ingredients': 'http://backend:8080',
+      '/health': 'http://backend:8080',
+    },
+  },
 })

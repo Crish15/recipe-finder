@@ -19,7 +19,7 @@ export function useRecipeSearch(ingredients: string[], cuisine: string | undefin
     setPage(1)
     setHasMore(true)
     try {
-      const res = await fetch(`http://127.0.0.1:8080/recipes/search?page=1`, {
+      const res = await fetch(`/recipes/search?page=1`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -48,7 +48,7 @@ export function useRecipeSearch(ingredients: string[], cuisine: string | undefin
     setLoadingMore(true)
     try {
       const nextPage = page + 1
-      const res = await fetch(`http://127.0.0.1:8080/recipes/search?page=${nextPage}`, {
+      const res = await fetch(`/recipes/search?page=${nextPage}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

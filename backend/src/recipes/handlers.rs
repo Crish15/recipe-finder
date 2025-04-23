@@ -36,11 +36,15 @@ pub async fn search_recipe(
     );
     let resp = match reqwest::get(&url).await {
         Ok(r) => r,
-        Err(_) => return HttpResponse::InternalServerError().body("External API call error"),
+        Err(_) => {
+            return HttpResponse::InternalServerError().body("External API call error");
+        },
     };
     let json: serde_json::Value = match resp.json().await {
         Ok(j) => j,
-        Err(_) => return HttpResponse::InternalServerError().body("Error parsing API response"),
+        Err(_) => {
+            return HttpResponse::InternalServerError().body("Error parsing API response");
+        },
     };
     HttpResponse::Ok().json(json)
 }
