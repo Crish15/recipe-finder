@@ -1,5 +1,6 @@
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react'
 import Button from './Button'
+import Icon from './Icon'
 
 interface CarouselProps<T> {
   items: T[]
@@ -94,15 +95,7 @@ function createCarousel<T>() {
                 rounded
                 variant="glass"
               >
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-                  <path
-                    d="M15 19l-7-7 7-7"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <Icon name="arrow-left" />
               </Button>
               <Button
                 type="button"
@@ -116,51 +109,14 @@ function createCarousel<T>() {
                 variant={currentIndex === items.length - 1 && onLoadMore ? 'warning' : 'glass'}
               >
                 {loadingMore ? (
-                  <svg
-                    className="animate-spin"
-                    width="20"
-                    height="20"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      opacity=".2"
-                    />
-                    <path
-                      d="M4 12a8 8 0 018-8"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <Icon name="spinner" />
                 ) : currentIndex === items.length - 1 && onLoadMore ? (
                   <span className="flex items-center gap-2">
-                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-                      <path
-                        d="M12 5v14M5 12h14"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <Icon name="plus" />
                     Load more
                   </span>
                 ) : (
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-                    <path
-                      d="M9 5l7 7-7 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Icon name="arrow-right" />
                 )}
               </Button>
             </div>

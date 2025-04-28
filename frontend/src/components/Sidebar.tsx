@@ -1,10 +1,11 @@
+import Icon from './Icon'
 import { Link, useLocation } from 'react-router-dom'
 
 const icons = [
-  { to: '/', icon: '🏠', label: 'Home' },
-  { to: '/recipes', icon: '🍳', label: 'Recipes' },
-  { to: '/ingredients', icon: '🥚', label: 'Ingredients' },
-  { to: '/saved-recipes', icon: '⭐', label: 'Saved' },
+  { to: '/', icon: <Icon name="home" />, label: 'Home' },
+  { to: '/recipes', icon: <Icon name="recipes" />, label: 'Recipes' },
+  { to: '/ingredients', icon: <Icon name="ingredients" />, label: 'Ingredients' },
+  { to: '/saved-recipes', icon: <Icon name="star" />, label: 'Saved' },
 ]
 
 export default function Sidebar() {
@@ -19,7 +20,7 @@ export default function Sidebar() {
       {/* Logo sempre visibile */}
       <div className="flex flex-col items-center gap-6">
         <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
-          <img src="/vite.svg" alt="Logo" className="w-8 h-8" />
+          <Icon name="logo" />
         </div>
       </div>
       {/* Pulsanti navigazione centrali (verticali su desktop) */}
@@ -32,7 +33,7 @@ export default function Sidebar() {
               ${pathname === to ? 'ring-2 ring-primary bg-primary/80 text-white' : 'hover:bg-primary/20 hover:text-primary'}`}
             title={label}
           >
-            <span>{icon}</span>
+            {icon}
           </Link>
         ))}
       </div>
