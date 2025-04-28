@@ -11,14 +11,16 @@ RUN apt-get update && apt-get install -y libssl3 ca-certificates && rm -rf /var/
 RUN cargo install cargo-watch
 COPY . .
 EXPOSE 8080
-CMD ["cargo", "watch", "-x", "run"]
+WORKDIR /src
+CMD ["cargo", "watch", "-w", "/src", "-x", "run"]
 
 # ---- Runtime stage ----
 FROM debian:bookworm-slim
 WORKDIR /app
 # Installa le librerie necessarie per OpenSSL 3
-RUN apt-get update && apt-get install -y libssl3 ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libssl3 ca-certificates sqlite3 && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /app/target/release/backend /app/backend
-COPY ./schema.sql ./recipe.db ./
-EXPOSE 8080
-CMD ["/app/backend"]
+COPY ./schema.sql ./
+COPY init_db.sh ./
+RUN chmod +x ./init_db.sh
+ENTRYPOINT ["./init_db.sh"]

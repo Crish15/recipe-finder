@@ -11,10 +11,11 @@ interface RecipesCarouselProps {
   loadMore: () => void
   loadingMore: boolean
   totalResults: number | null
+  onRecipeClick?: (recipe: Recipe) => void
 }
 
 const RecipesCarousel = React.forwardRef<CarouselRef, RecipesCarouselProps>(
-  function RecipesCarousel({ recipes, hasMore, loadMore, loadingMore, totalResults }, ref) {
+  function RecipesCarousel({ recipes, hasMore, loadMore, loadingMore, totalResults, onRecipeClick }, ref) {
     // Leggi l'indice attuale tramite ref
     const [currentIndex, setCurrentIndex] = React.useState(0)
     React.useEffect(() => {
@@ -31,7 +32,11 @@ const RecipesCarousel = React.forwardRef<CarouselRef, RecipesCarouselProps>(
       <Carousel
         ref={ref}
         items={recipes}
-        renderItem={(recipe) => <RecipeCard recipe={recipe} />}
+        renderItem={(recipe) => (
+          <div onClick={() => onRecipeClick && onRecipeClick(recipe)} className="cursor-pointer">
+            <RecipeCard recipe={recipe} />
+          </div>
+        )}
         onLoadMore={hasMore ? loadMore : undefined}
         loadingMore={loadingMore}
         onIndexChange={setCurrentIndex}

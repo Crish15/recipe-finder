@@ -1,18 +1,5 @@
 version: '3.9'
 services:
-  backend:
-    build:
-      context: ./backend
-      target: dev
-    ports:
-      - "49152:8080"
-    volumes:
-      - ./backend/recipe.db:/app/recipe.db
-      - ./backend:/app
-    environment:
-      - RUST_LOG=info
-    env_file:
-      - ./backend/.env
   frontend:
     build:
       context: ./frontend
@@ -24,3 +11,31 @@ services:
       - /app/node_modules
     depends_on:
       - backend
+  backend:
+    build:
+      context: ./backend
+      target: dev
+    ports:
+      - "49152:8080"
+    volumes:
+      - ./backend:/src
+    working_dir: /src
+    environment:
+      - RUST_LOG=info
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/recipe_db
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: recipe_db
+    ports:
+      - "55432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend:/src
+volumes:
+  pgdata:

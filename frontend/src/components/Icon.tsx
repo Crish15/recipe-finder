@@ -11,6 +11,7 @@ export type IconName =
   | 'ingredients'
   | 'user'
   | 'logo'
+  | 'logout'
 
 interface IconProps {
   name: IconName
@@ -46,14 +47,28 @@ const icons: Record<IconName, React.ReactNode> = {
   ingredients: <span>🥚</span>,
   user: <span>👤</span>,
   logo: <img src="/vite.svg" alt="Logo" className="w-8 h-8" />,
+  logout: (
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+      <path d="M16 17v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M21 12H9m0 0l3-3m-3 3l3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
 }
 
 const Icon: React.FC<IconProps> = ({ name, className = '', size = 20 }) => {
   const icon = icons[name]
   if (!icon) return null
   // Se SVG, aggiungi dimensioni e className
-  if (React.isValidElement(icon) && icon.type === 'svg') {
-    return React.cloneElement(icon, { width: size, height: size, className })
+  if (
+    React.isValidElement(icon) &&
+    typeof icon.type === 'string' &&
+    icon.type === 'svg'
+  ) {
+    return React.cloneElement(icon as React.ReactElement<React.SVGProps<SVGSVGElement>>, {
+      width: size,
+      height: size,
+      className: className
+    })
   }
   // Emoji o altro
   return <span className={className} style={{ fontSize: size }}>{icon}</span>

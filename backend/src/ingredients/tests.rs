@@ -1,7 +1,7 @@
 use super::handlers::*;
 use serde_json;
 use actix_web::{test, web, App};
-use sqlx::SqlitePool;
+use sqlx::postgres::PgPool;
 
 #[actix_web::test]
 async fn test_ingredients_input_deserialize() {
@@ -13,7 +13,7 @@ async fn test_ingredients_input_deserialize() {
 #[actix_web::test]
 async fn test_add_ingredients_handler() {
     // Usa un database in-memory per i test
-    let pool = SqlitePool::connect("sqlite::memory:").await.unwrap();
+    let pool = PgPool::connect("postgres://postgres:postgres@localhost:5432/recipe_db").await.unwrap();
     sqlx::query("CREATE TABLE ingredients (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE)")
         .execute(&pool)
         .await

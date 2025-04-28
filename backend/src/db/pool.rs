@@ -1,8 +1,8 @@
-use sqlx::sqlite::SqlitePool;
+use sqlx::postgres::PgPool;
 
-pub async fn init_db() -> SqlitePool {
-    let db_url = "sqlite:recipe.db";
-    SqlitePool::connect(db_url)
+pub async fn init_db() -> PgPool {
+    let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    PgPool::connect(&db_url)
         .await
-        .expect("Impossibile connettersi al DB")
+        .expect("Failed to connect to Postgres database")
 }

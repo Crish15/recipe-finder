@@ -2,7 +2,7 @@ import React from 'react'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'default' | 'glass' | 'warning'
+  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'default' | 'glass' | 'warning' | 'danger'
   rounded?: boolean
 }
 
@@ -15,7 +15,9 @@ const variantClasses: Record<string, string> = {
     'bg-white/80 hover:bg-primary/10 border border-primary text-primary shadow backdrop-blur-md',
   default: 'bg-white/40 hover:bg-white/60 text-neutral-900 border border-neutral-400',
   warning:
-    'bg-warning/80 hover:bg-warning border border-warning text-yellow-900 font-bold text-xs px-4 py-2 min-w-0 w-auto',
+    'bg-warning/80 hover:bg-warning border border-warning text-yellow-900 px-4 py-2 min-w-0 w-auto',
+  danger:
+    'bg-red-600 hover:bg-red-700 text-white border border-red-700',
 }
 
 const Button: React.FC<ButtonProps> = ({

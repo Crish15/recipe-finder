@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CuisineContext } from './CuisineContext'
+import { CuisineContext } from '../context/CuisineContext'
 import Sidebar from '../components/Sidebar'
 import Button from '../components/Button'
 import PastaPattern from '../components/PastaPattern'
@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const userName = 'Alex' // Placeholder, in futuro dinamico
+const userName = typeof window !== 'undefined' ? localStorage.getItem('username') || '' : ''
 const cuisineTypes = [
   { label: 'Mediterranean', value: 'mediterranean', emoji: '🌊' },
   { label: 'Asian', value: 'asian', emoji: '🍜' },

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Recipe } from '../Recipes'
+import { useAuth } from '../../../context/AuthContext'
 
 export function useRecipeSearch(ingredients: string[], cuisine: string | undefined) {
+  const { token } = useAuth()
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -19,9 +21,12 @@ export function useRecipeSearch(ingredients: string[], cuisine: string | undefin
     setPage(1)
     setHasMore(true)
     try {
-      const res = await fetch(`/recipes/search?page=1`, {
+      const res = await fetch('/api/recipes/search?page=1', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           ingredients,
           cuisine: cuisine || undefined,
@@ -48,9 +53,12 @@ export function useRecipeSearch(ingredients: string[], cuisine: string | undefin
     setLoadingMore(true)
     try {
       const nextPage = page + 1
-      const res = await fetch(`/recipes/search?page=${nextPage}`, {
+      const res = await fetch(`/api/recipes/search?page=${nextPage}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           ingredients,
           cuisine: cuisine || undefined,
